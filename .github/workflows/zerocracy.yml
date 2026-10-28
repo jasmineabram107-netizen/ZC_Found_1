@@ -1,0 +1,26 @@
+
+name: zerocracy
+
+'on':
+  workflow_dispatch:
+  schedule:
+    - cron: '42 * * * *'
+
+concurrency:
+  group: zerocracy
+  cancel-in-progress: false
+
+jobs:
+  zerocracy:
+    if: github.repository_owner == 'jasmineabram107-netizen'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: zerocracy/judges-action@0.17.21
+        with:
+          token: ${{ secrets.ZEROCRACY_TOKEN }}
+          repositories: jasmineabram107-netizen/ZC_Found_1
+          factbase: ZC_Found_1.fb
